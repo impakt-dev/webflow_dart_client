@@ -110,9 +110,14 @@ FieldData _$FieldDataFromJson(Map<String, dynamic> json) => FieldData(
       name: json['name'] as String?,
       department: json['department'] as String?,
       slug: json['slug'] as String?,
-      thumbnailImage: json['thumbnailImage'] as String?,
-      mainImage: json['mainImage'] as String?,
-      postSummary: json['postSummary'] as String?,
+      thumbnailImage: json['thumbnail-image'] == null
+          ? null
+          : ImageField.fromJson(
+              json['thumbnail-image'] as Map<String, dynamic>),
+      mainImage: json['main-image'] == null
+          ? null
+          : ImageField.fromJson(json['main-image'] as Map<String, dynamic>),
+      postSummary: json['post-summary'] as String?,
       featured: json['featured'] as bool?,
     );
 
@@ -121,8 +126,21 @@ Map<String, dynamic> _$FieldDataToJson(FieldData instance) => <String, dynamic>{
       'name': instance.name,
       'department': instance.department,
       'slug': instance.slug,
-      'thumbnailImage': instance.thumbnailImage,
-      'mainImage': instance.mainImage,
-      'postSummary': instance.postSummary,
+      'thumbnail-image': instance.thumbnailImage,
+      'main-image': instance.mainImage,
+      'post-summary': instance.postSummary,
       'featured': instance.featured,
+    };
+
+ImageField _$ImageFieldFromJson(Map<String, dynamic> json) => ImageField(
+      fileId: json['fileId'] as String?,
+      url: json['url'] as String?,
+      alt: json['alt'] as String?,
+    );
+
+Map<String, dynamic> _$ImageFieldToJson(ImageField instance) =>
+    <String, dynamic>{
+      'fileId': instance.fileId,
+      'url': instance.url,
+      'alt': instance.alt,
     };

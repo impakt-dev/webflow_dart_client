@@ -117,8 +117,11 @@ class FieldData {
   final String? name;
   final String? department;
   final String? slug;
-  final String? thumbnailImage;
-  final String? mainImage;
+  @JsonKey(name: 'thumbnail-image')
+  final ImageField? thumbnailImage;
+  @JsonKey(name: 'main-image')
+  final ImageField? mainImage;
+  @JsonKey(name: 'post-summary')
   final String? postSummary;
   final bool? featured;
 
@@ -140,4 +143,22 @@ class FieldData {
 
   @override
   String toString() => jsonEncode(toJson());
+}
+
+@JsonSerializable()
+class ImageField {
+  final String? fileId;
+  final String? url;
+  final String? alt;
+
+  ImageField({
+    this.fileId,
+    this.url,
+    this.alt,
+  });
+
+  factory ImageField.fromJson(Map<String, dynamic> json) =>
+      _$ImageFieldFromJson(json);
+  
+  Map<String, dynamic> toJson() => _$ImageFieldToJson(this);
 }
